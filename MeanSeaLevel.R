@@ -6,6 +6,8 @@ setwd("~/Desktop/MOODIES")
 
 mean.sea.level <- read.csv("data/MeanSeaLevel.csv")
 
+totalsealevelAcadia = cumsum(y=mean.sea.level$Acadia)
+
 qplot(
   x=mean.sea.level$Year + mean.sea.level$Month / 12,
   y=mean.sea.level$Acadia
@@ -29,4 +31,28 @@ qplot(
 qplot(
   x=mean.sea.level$Year + mean.sea.level$Month / 12,
   y=mean.sea.level$Padre.Island
+)
+
+nonaacadia = mean.sea.level$Acadia[!is.na(mean.sea.level$Acadia)]
+totalsealevelAcadia = cumsum(nonaacadia)
+
+plot(
+  x=mean.sea.level$Year[!is.na(mean.sea.level$Acadia)] + mean.sea.level$Month[!is.na(mean.sea.level$Acadia)] / 12,
+  y= totalsealevelAcadia
+)
+
+nonahatteras = mean.sea.level$Cape.Hatteras[!is.na(mean.sea.level$Cape.Hatteras)]
+totalsealevelCape.Hatteras = cumsum(nonahatteras)
+
+plot(
+  x=mean.sea.level$Year[!is.na(mean.sea.level$Cape.Hatteras)] + mean.sea.level$Month[!is.na(mean.sea.level$Cape.Hatteras)] / 12,
+  y= totalsealevelCape.Hatteras
+)
+
+nonahatteras = mean.sea.level$Cape.Hatteras[!is.na(mean.sea.level$Cape.Hatteras)]
+totalsealevelCape.Hatteras = cumsum(nonahatteras)
+
+plot(
+  x=mean.sea.level$Year[!is.na(mean.sea.level$Cape.Hatteras)] + mean.sea.level$Month[!is.na(mean.sea.level$Cape.Hatteras)] / 12,
+  y= totalsealevelCape.Hatteras
 )
