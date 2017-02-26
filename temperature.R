@@ -119,9 +119,9 @@ qplot(x=Kenai.Yearlist, y=abs(head(Kenai.Yearavg*Kenai.Yeardif,-3)))
 qplot(x=Olympic.Yearlist, y=abs(Olympic.Yearavg*Olympic.Yeardif))
 qplot(x=Padre.Yearlist, y=abs(Padre.Yearavg*Padre.Yeardif))
 
-TemperatureMetric <- function(fulldata,avgdata) {
-  month <- round(12*(fulldata.Temp$DATE - floor(fulldata.Temp$DATE)))
-  year = round(floor(fulldata.Temp$DATE))
+TemperatureMetric <- function(t,fulldata,avgdata) {
+  month <- round(12*(fulldata$DATE - floor(fulldata$DATE)))
+  year = round(floor(fulldata$DATE))
   Normtemp <- avgdata$AVG[month+1]
   Yearlist <- unique(year[!is.na(fulldata$TAVG)])
   Yearavg <- rep(0,times = length(Yearlist))
@@ -136,11 +136,11 @@ TemperatureMetric <- function(fulldata,avgdata) {
   Yearmin <- rep(0,times = length(Yearlist))
   for (i in 1:length(Acadia.Yearlist))
   {
-    Yearmax[i] <- max(Temp$EMXT[(year == Yearlist[i])],na.rm=T)
-    Yearmin[i] <- min(Temp$EMNT[(year == Yearlist[i])],na.rm=T)
+    Yearmax[i] <- max(fulldata$EMXT[(year == Yearlist[i])],na.rm=T)
+    Yearmin[i] <- min(fulldata$EMNT[(year == Yearlist[i])],na.rm=T)
   }
   Yeardif = (Yearmax-Yearmin) - DeltaTnorm
-  qplot(x=Yearlist, y=abs(Yearavg* Yeardif))
+  return(Yeardif[Yearlist == t])
 }
   
   
