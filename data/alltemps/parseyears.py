@@ -1,0 +1,11 @@
+readfile = open('ACADIA.csv','r')
+writefile = open('acadiawrite.csv','w')
+writefile.write(readfile.readline())
+for line in readfile:
+        brokenup = line.split(',')
+        brokenup[0] = brokenup[0].split('-')
+        print(brokenup)
+        brokenup[0] = str(float(brokenup[0][0])+float(brokenup[0][1])/12)
+        writefile.write(','.join(brokenup))
+readfile.close()
+writefile.close()
