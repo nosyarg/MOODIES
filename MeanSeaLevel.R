@@ -50,9 +50,9 @@ acadia <- data.frame(
   (mean.sea.level$Year[!is.na(mean.sea.level$Acadia)] + mean.sea.level$Month[!is.na(mean.sea.level$Acadia)] / 12 - 1997)^2,
   (mean.sea.level$Year[!is.na(mean.sea.level$Acadia)] + mean.sea.level$Month[!is.na(mean.sea.level$Acadia)] / 12 - 1997)^3,
   (mean.sea.level$Year[!is.na(mean.sea.level$Acadia)] + mean.sea.level$Month[!is.na(mean.sea.level$Acadia)] / 12 - 1997)^4,
-  log(mean.sea.level$Year[!is.na(mean.sea.level$Acadia)] + mean.sea.level$Month[!is.na(mean.sea.level$Acadia)] / 12 - 1997))
-names(acadia) <- c("Acadia", "Time", "Time2", "Time3", "Time4", "logTime")
-acadia.fit <- glm(Acadia~logTime, data=acadia)
+  sin(mean.sea.level$Year[!is.na(mean.sea.level$Acadia)] + mean.sea.level$Month[!is.na(mean.sea.level$Acadia)] / 12 - 1997))
+names(acadia) <- c("Acadia", "Time", "Time2", "Time3", "Time4", "sinTime")
+acadia.fit <- glm(Acadia~Time+Time2+Time3+sinTime, data=acadia[1:157,])
 summary(acadia.fit)
                     
 nonahatteras = mean.sea.level$Cape.Hatteras[!is.na(mean.sea.level$Cape.Hatteras)]
@@ -94,6 +94,7 @@ kenai <- data.frame(
   (mean.sea.level$Year[!is.na(mean.sea.level$Kenai.Fjords)] + mean.sea.level$Month[!is.na(mean.sea.level$Kenai.Fjords)] / 12 - 1997)^3)
 names(kenai) <- c("Kenai", "Time", "Time2", "Time3")
 kenai.fit <- lm(Kenai~Time+Time2+Time3, data=kenai)
+summary(kenai.fit)
 
 nonaolympic = mean.sea.level$Olympic[!is.na(mean.sea.level$Olympic)]
 totalsealevelOlympic= cumsum(nonaolympic)
@@ -106,9 +107,15 @@ qplot(
   main="Olympic Cumulative MSL Function"
 ) + geom_line()
 
-olympic <- data.frame(totalsealevelOlympic, sin(mean.sea.level$Year[!is.na(mean.sea.level$Olympic)] + mean.sea.level$Month[!is.na(mean.sea.level$Olympic)] / 12 - 1997))
-names(olympic) <- c("Olympic", "sinTime")
-olympic.fit <- glm(Olympic~sinTime, data=olympic)
+olympic <- data.frame(
+  totalsealevelOlympic, 
+  sin(mean.sea.level$Year[!is.na(mean.sea.level$Olympic)] + mean.sea.level$Month[!is.na(mean.sea.level$Olympic)] / 12 - 1997),
+  mean.sea.level$Year[!is.na(mean.sea.level$Olympic)] + mean.sea.level$Month[!is.na(mean.sea.level$Olympic)] / 12 - 1997,
+  (mean.sea.level$Year[!is.na(mean.sea.level$Olympic)] + mean.sea.level$Month[!is.na(mean.sea.level$Olympic)] / 12 - 1997)^2,
+  (mean.sea.level$Year[!is.na(mean.sea.level$Olympic)] + mean.sea.level$Month[!is.na(mean.sea.level$Olympic)] / 12 - 1997)^3)
+names(olympic) <- c("Olympic", "sinTime", "Time", "Time2", "Time3")
+olympic.fit <- glm(Olympic~Time+Time2+Time3, data=olympic)
+summary(olympic.fit)
 
 nonapadre = mean.sea.level$Padre.Island[!is.na(mean.sea.level$Padre.Island)]
 totalsealevelPadre.Island= cumsum(nonapadre)
@@ -121,6 +128,15 @@ qplot(
   main="Padre Island Cumulative MSL Function"
 ) + geom_line()
 
-padre <- data.frame(totalsealevelPadre.Island, mean.sea.level$Year[!is.na(mean.sea.level$Padre.Island)] + mean.sea.level$Month[!is.na(mean.sea.level$Padre.Island)] / 12 - 1997, sin(mean.sea.level$Year[!is.na(mean.sea.level$Padre.Island)] + mean.sea.level$Month[!is.na(mean.sea.level$Padre.Island)] / 12 - 1997))
-names(padre) <- c("Padre", "Time", "sinTime")
-padre.fit <- glm(Padre~Time+sinTime, data=padre)
+padre <- data.frame(
+  totalsealevelPadre.Island, 
+  mean.sea.level$Year[!is.na(mean.sea.level$Padre.Island)] + mean.sea.level$Month[!is.na(mean.sea.level$Padre.Island)] / 12 - 1997, 
+  sin(mean.sea.level$Year[!is.na(mean.sea.level$Padre.Island)] + mean.sea.level$Month[!is.na(mean.sea.level$Padre.Island)] / 12 - 1997),
+  (mean.sea.level$Year[!is.na(mean.sea.level$Padre.Island)] + mean.sea.level$Month[!is.na(mean.sea.level$Padre.Island)] / 12 - 1997)^2,
+  (mean.sea.level$Year[!is.na(mean.sea.level$Padre.Island)] + mean.sea.level$Month[!is.na(mean.sea.level$Padre.Island)] / 12 - 1997)^3,
+  (mean.sea.level$Year[!is.na(mean.sea.level$Padre.Island)] + mean.sea.level$Month[!is.na(mean.sea.level$Padre.Island)] / 12 - 1997)^4,
+  (mean.sea.level$Year[!is.na(mean.sea.level$Padre.Island)] + mean.sea.level$Month[!is.na(mean.sea.level$Padre.Island)] / 12 - 1997)^5
+)
+names(padre) <- c("Padre", "Time", "sinTime", "Time2", "Time3", "Time4", "Time5")
+padre.fit <- glm(Padre~Time+Time2, data=padre)
+summary(padre.fit)
