@@ -54,19 +54,93 @@ Padre.Yearavg <- rep(0,times = length(Padre.Yearlist))
 
 for (i in 1:length(Acadia.Yearlist))
 {
-  Acadia.Yearavg[i] <- mean(Acadia.Temp$TAVG[!is.na(Acadia.Temp$TAVG) & (Acadia.Year == Acadia.Yearlist[i])] - Acadia.Normtemp[!is.na(Acadia.Temp$TAVG) & (Acadia.Year == Acadia.Yearlist[i])])
-  Hatteras.Yearavg[i] <- mean(Hatteras.Temp$TAVG[!is.na(Hatteras.Temp$TAVG) & (Hatteras.Year == Hatteras.Yearlist[i])]- Hatteras.Normtemp[!is.na(Hatteras.Temp$TAVG) & (Hatteras.Year == Hatteras.Yearlist[i])])
-  Kenai.Yearavg[i] <- mean(Kenai.Temp$TAVG[!is.na(Kenai.Temp$TAVG) & (Kenai.Year == Kenai.Yearlist[i])]- Kenai.Normtemp[!is.na(Kenai.Temp$TAVG) & (Kenai.Year == Kenai.Yearlist[i])])
-  Olympic.Yearavg[i] <- mean(Olympic.Temp$TAVG[!is.na(Olympic.Temp$TAVG) & (Olympic.Year == Olympic.Yearlist[i])]- Olympic.Normtemp[!is.na(Olympic.Temp$TAVG) & (Olympic.Year == Olympic.Yearlist[i])])
-  Padre.Yearavg[i] <- mean(Padre.Temp$TAVG[!is.na(Padre.Temp$TAVG) & (Padre.Year == Padre.Yearlist[i])]- Padre.Normtemp[!is.na(Padre.Temp$TAVG) & (Padre.Year == Padre.Yearlist[i])])
+  Acadia.Yearavg[i] <- mean(abs(Acadia.Temp$TAVG[!is.na(Acadia.Temp$TAVG) & (Acadia.Year == Acadia.Yearlist[i])] - Acadia.Normtemp[!is.na(Acadia.Temp$TAVG) & (Acadia.Year == Acadia.Yearlist[i])]))
+  Hatteras.Yearavg[i] <- mean(abs(Hatteras.Temp$TAVG[!is.na(Hatteras.Temp$TAVG) & (Hatteras.Year == Hatteras.Yearlist[i])]- Hatteras.Normtemp[!is.na(Hatteras.Temp$TAVG) & (Hatteras.Year == Hatteras.Yearlist[i])]))
+  Kenai.Yearavg[i] <- mean(abs(Kenai.Temp$TAVG[!is.na(Kenai.Temp$TAVG) & (Kenai.Year == Kenai.Yearlist[i])]- Kenai.Normtemp[!is.na(Kenai.Temp$TAVG) & (Kenai.Year == Kenai.Yearlist[i])]))
+  Olympic.Yearavg[i] <- mean(abs(Olympic.Temp$TAVG[!is.na(Olympic.Temp$TAVG) & (Olympic.Year == Olympic.Yearlist[i])]- Olympic.Normtemp[!is.na(Olympic.Temp$TAVG) & (Olympic.Year == Olympic.Yearlist[i])]))
+  Padre.Yearavg[i] <- mean(abs(Padre.Temp$TAVG[!is.na(Padre.Temp$TAVG) & (Padre.Year == Padre.Yearlist[i])]- Padre.Normtemp[!is.na(Padre.Temp$TAVG) & (Padre.Year == Padre.Yearlist[i])]))
 }
-plot(x=Acadia.Yearlist, y=Acadia.Yearavg)
-plot(x=Hatteras.Yearlist, y=Hatteras.Yearavg)
-plot(x=Kenai.Yearlist, y=Kenai.Yearavg[!is.na(Kenai.Yearavg)])
-plot(x=Olympic.Yearlist, y=Olympic.Yearavg)
-plot(x=Padre.Yearlist, y=Padre.Yearavg)
 
-TemperatureMetric <- function(t) {
-  
-  return(23042094);
+Acadia.maxtemp <- max(Acadia.AVG$MAX,na.rm = T)
+Acadia.mintemp <- min(Acadia.AVG$MIN,na.rm = T)
+Hatteras.maxtemp <- max(Hatteras.AVG$MAX,na.rm = T)
+Hatteras.mintemp <- min(Hatteras.AVG$MIN,na.rm = T)
+Kenai.maxtemp <- max(Kenai.AVG$MAX,na.rm = T)
+Kenai.mintemp <- min(Kenai.AVG$MIN,na.rm = T)
+Olympic.maxtemp <- max(Olympic.AVG$MAX,na.rm = T)
+Olympic.mintemp <- min(Olympic.AVG$MIN,na.rm = T)
+Padre.maxtemp <- max(Padre.AVG$MAX,na.rm = T)
+Padre.mintemp <- min(Padre.AVG$MIN,na.rm = T)
+
+Acadia.DeltaTnorm <- Acadia.maxtemp - Acadia.mintemp
+Hatteras.DeltaTnorm <- Hatteras.maxtemp - Hatteras.mintemp
+Kenai.DeltaTnorm <- Kenai.maxtemp - Kenai.mintemp
+Olympic.DeltaTnorm <- Olympic.maxtemp - Olympic.mintemp
+Padre.DeltaTnorm <- Padre.maxtemp - Padre.mintemp
+
+Acadia.Yearmax <- rep(0,times = length(Acadia.Yearlist))
+Hatteras.Yearmax <- rep(0,times = length(Hatteras.Yearlist))
+Kenai.Yearmax <- rep(0,times = length(Kenai.Yearlist))
+Olympic.Yearmax <- rep(0,times = length(Olympic.Yearlist))
+Padre.Yearmax <- rep(0,times = length(Padre.Yearlist))
+Acadia.Yearmin <- rep(0,times = length(Acadia.Yearlist))
+Hatteras.Yearmin <- rep(0,times = length(Hatteras.Yearlist))
+Kenai.Yearmin <- rep(0,times = length(Kenai.Yearlist))
+Olympic.Yearmin <- rep(0,times = length(Olympic.Yearlist))
+Padre.Yearmin <- rep(0,times = length(Padre.Yearlist))
+
+for (i in 1:length(Acadia.Yearlist))
+{
+  Acadia.Yearmax[i] <- max(Acadia.Temp$EMXT[(Acadia.Year == Acadia.Yearlist[i])],na.rm=T)
+  Hatteras.Yearmax[i] <- max(Hatteras.Temp$EMXT[(Hatteras.Year == Hatteras.Yearlist[i])],na.rm=T)
+  Kenai.Yearmax[i] <- max(Kenai.Temp$EMXT[(Kenai.Year == Kenai.Yearlist[i])],na.rm=T)
+  Olympic.Yearmax[i] <- max(Olympic.Temp$EMXT[(Olympic.Year == Olympic.Yearlist[i])],na.rm=T)
+  Padre.Yearmax[i] <- max(Padre.Temp$EMXT[(Padre.Year == Padre.Yearlist[i])],na.rm=T)
+  Acadia.Yearmin[i] <- min(Acadia.Temp$EMNT[(Acadia.Year == Acadia.Yearlist[i])],na.rm=T)
+  Hatteras.Yearmin[i] <- min(Hatteras.Temp$EMNT[(Hatteras.Year == Hatteras.Yearlist[i])],na.rm=T)
+  Olympic.Yearmin[i] <- min(Olympic.Temp$EMNT[(Olympic.Year == Olympic.Yearlist[i])],na.rm=T)
+  Padre.Yearmin[i] <- min(Padre.Temp$EMNT[(Padre.Year == Padre.Yearlist[i])],na.rm=T)
 }
+for(i in 1:length(Kenai.Yearlist))
+{
+  Kenai.Yearmax[i] <- max(Kenai.Temp$EMXT[(Kenai.Year == Kenai.Yearlist[i])],na.rm=T)
+  Kenai.Yearmin[i] <- min(Kenai.Temp$EMNT[(Kenai.Year == Kenai.Yearlist[i])],na.rm=T)
+}
+
+Acadia.Yeardif = (Acadia.Yearmax-Acadia.Yearmin) - Acadia.DeltaTnorm
+Hatteras.Yeardif = (Hatteras.Yearmax-Hatteras.Yearmin) - Hatteras.DeltaTnorm
+Kenai.Yeardif = (Kenai.Yearmax-Kenai.Yearmin) - Kenai.DeltaTnorm
+Olympic.Yeardif = (Olympic.Yearmax-Olympic.Yearmin) - Olympic.DeltaTnorm
+Padre.Yeardif = (Padre.Yearmax-Padre.Yearmin) - Padre.DeltaTnorm
+
+qplot(x=Acadia.Yearlist, y=abs(Acadia.Yearavg*Acadia.Yeardif))
+qplot(x=Hatteras.Yearlist, y=abs(Hatteras.Yearavg*Hatteras.Yeardif))
+qplot(x=Kenai.Yearlist, y=abs(head(Kenai.Yearavg*Kenai.Yeardif,-3)))
+qplot(x=Olympic.Yearlist, y=abs(Olympic.Yearavg*Olympic.Yeardif))
+qplot(x=Padre.Yearlist, y=abs(Padre.Yearavg*Padre.Yeardif))
+
+TemperatureMetric <- function(fulldata,avgdata) {
+  month <- round(12*(fulldata.Temp$DATE - floor(fulldata.Temp$DATE)))
+  year = round(floor(fulldata.Temp$DATE))
+  Normtemp <- avgdata$AVG[month+1]
+  Yearlist <- unique(year[!is.na(fulldata$TAVG)])
+  Yearavg <- rep(0,times = length(Yearlist))
+  for (i in 1:length(Yearlist))
+  {
+    Yearavg[i] <- mean(abs(fulldata$TAVG[!is.na(fulldata$TAVG) & (year == Yearlist[i])] - Normtemp[!is.na(fulldata$TAVG) & (year == Yearlist[i])]))
+  }
+  maxtemp <- max(avgdata$MAX,na.rm = T)
+  mintemp <- min(avgdata$MIN,na.rm = T)
+  DeltaTnorm <- maxtemp - mintemp
+  Yearmax <- rep(0,times = length(Yearlist))
+  Yearmin <- rep(0,times = length(Yearlist))
+  for (i in 1:length(Acadia.Yearlist))
+  {
+    Yearmax[i] <- max(Temp$EMXT[(year == Yearlist[i])],na.rm=T)
+    Yearmin[i] <- min(Temp$EMNT[(year == Yearlist[i])],na.rm=T)
+  }
+  Yeardif = (Yearmax-Yearmin) - DeltaTnorm
+  qplot(x=Yearlist, y=abs(Yearavg* Yeardif))
+}
+  
+  
