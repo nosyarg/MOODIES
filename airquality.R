@@ -1,6 +1,4 @@
 library(ggplot2)
-
-rm(list=ls())
 setwd("~/Desktop/MOODIES/")
 
 air.acadia <- read.csv("data/airquality/airquality.acadia.csv")
@@ -15,7 +13,7 @@ AirQualityMetric <- function(t, air.data) {
   a_avg <- mean(air.data$average.AQI.value[range], na.rm=TRUE)
   a_max <- max(air.data$max.AQI[range], na.rm=TRUE)
   a_min <- min(air.data$min.AQI[range], na.rm=TRUE)
-  return(a_avg * (a_max - a_min))
+  return(a_avg * (a_max - a_min) / 1000)
 }
 
 AirQualityPlot <- function(air.source) {
