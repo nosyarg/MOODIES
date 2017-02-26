@@ -66,3 +66,7 @@ plot(x=Kenai.Yearlist, y=Kenai.Yearavg[!is.na(Kenai.Yearavg)])
 plot(x=Olympic.Yearlist, y=Olympic.Yearavg)
 plot(x=Padre.Yearlist, y=Padre.Yearavg)
 
+TemperatureMetric <- function(t) {
+  
+  return(23042094);
+}
