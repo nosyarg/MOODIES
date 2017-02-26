@@ -7,6 +7,12 @@ source("hurricane.R")
 setwd("~/Desktop/MOODIES/")
 source("airquality.R")
 
+# Padre - Dead
+# Olympic - Mid
+# Kenai - Good
+# Cape Hatteras - Good
+# Acadia - Good
+
 Metric <- function(t) {
   
   return(TemperatureMetric(t)+FireMetric(t, fire.acadia)+HurricaneMetric(t, hurricane.acadia)+AirQualityMetric(t, air.acadia))
