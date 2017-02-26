@@ -49,10 +49,26 @@ plot(
   y= totalsealevelCape.Hatteras
 )
 
-nonahatteras = mean.sea.level$Cape.Hatteras[!is.na(mean.sea.level$Cape.Hatteras)]
-totalsealevelCape.Hatteras = cumsum(nonahatteras)
+nonakenai = mean.sea.level$Kenai.Fjords[!is.na(mean.sea.level$Kenai.Fjords)]
+totalsealevelKenai.Fjords = cumsum(nonakenai)
 
 plot(
-  x=mean.sea.level$Year[!is.na(mean.sea.level$Cape.Hatteras)] + mean.sea.level$Month[!is.na(mean.sea.level$Cape.Hatteras)] / 12,
-  y= totalsealevelCape.Hatteras
+  x=mean.sea.level$Year[!is.na(mean.sea.level$Kenai.Fjords)] + mean.sea.level$Month[!is.na(mean.sea.level$Kenai.Fjords)] / 12,
+  y= totalsealevelKenai.Fjords
+)
+
+nonaolympic = mean.sea.level$Olympic[!is.na(mean.sea.level$Olympic)]
+totalsealevelOlympic= cumsum(nonaolympic)
+
+plot(
+  x=mean.sea.level$Year[!is.na(mean.sea.level$Olympic)] + mean.sea.level$Month[!is.na(mean.sea.level$Olympic)] / 12,
+  y= totalsealevelOlympic
+)
+
+nonapadre = mean.sea.level$Padre.Island[!is.na(mean.sea.level$Padre.Island)]
+totalsealevelPadre.Island= cumsum(nonapadre)
+
+plot(
+  x=mean.sea.level$Year[!is.na(mean.sea.level$Padre.Island)] + mean.sea.level$Month[!is.na(mean.sea.level$Padre.Island)] / 12,
+  y= totalsealevelPadre.Island
 )
