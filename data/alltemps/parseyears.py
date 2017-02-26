@@ -1,5 +1,5 @@
-readfile = open('ACADIA.csv','r')
-writefile = open('acadiawrite.csv','w')
+readfile = open('PADRE.csv','r')
+writefile = open('padrewrite.csv','w')
 writefile.write(readfile.readline())
 for line in readfile:
         brokenup = line.split(',')
