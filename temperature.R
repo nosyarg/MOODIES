@@ -139,8 +139,14 @@ TemperatureMetric <- function(t,fulldata,avgdata) {
     Yearmax[i] <- max(fulldata$EMXT[(year == Yearlist[i])],na.rm=T)
     Yearmin[i] <- min(fulldata$EMNT[(year == Yearlist[i])],na.rm=T)
   }
-  Yeardif = (Yearmax-Yearmin) - DeltaTnorm
-  return(Yeardif[Yearlist == t])
+  Yeardif = abs((Yearmax-Yearmin) - DeltaTnorm)
+  if (length(Yeardif[Yearlist == t]) != 0) {
+    if (Yeardif[Yearlist == t][1] == Inf) {
+      return (0)
+    }
+    return(Yeardif[Yearlist == t][1] / 2)
+  }
+  return(0)
 }
   
   

@@ -15,7 +15,7 @@ FireMetric <- function(t, fire.data) {
       D <- D + fire.data[i,"Statistics.1.Acres"]
     }
   }
-  return(sqrt(D))
+  return(log(D+1))
 }
 
 FirePlot <- function(fire.data) {
